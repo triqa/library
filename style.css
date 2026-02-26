@@ -11,7 +11,7 @@
 }
 
 #add-book-form {
-  display: flex;
+  display: grid;
   flex-direction: column;
   gap: 20px;
 }
@@ -22,4 +22,9 @@
 
 form button {
   padding: 10px;
+}
+
+#add-book-btn.hidden,
+#add-book-form.hidden {
+  display: none;
 }
