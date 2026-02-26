@@ -8,15 +8,35 @@ function Book(title, author, pages, read) {
   this.pages = pages;
   this.read = read;
 
+  // Create unique idea for this book
+  this.id = crypto.randomUUID();
+
   this.info = function () {
     console.log(
-      `${this.title} by ${this.author}, ${this.pages} pages, ${this.read ? "read already" : "not read yet"}`,
+      `${this.id}: ${this.title} by ${this.author}, ${this.pages} pages, ${this.read ? "read already" : "not read yet"}`,
     );
   };
 }
 
-const book1 = new Book("The Hobbit", "J.R.R. Tolkien", 295, true);
+function addBookToLibrary(title, author, pages, read) {
+  // Create book
+  const book = new Book(title, author, pages, read);
 
-book1.info();
+  // Add book to the books array
+  library.push(book);
+}
 
-// console.log(ans);
+function displayBooks(library) {
+  // Loops through array and displays each book on the page
+  for (let book of library) {
+    console.table(book);
+  }
+}
+
+let library = [];
+
+addBookToLibrary("The Hobbit", "J.R.R. Tolkien", 295, false);
+addBookToLibrary("Warrior Cats", "Erin Hunter", 374, true);
+addBookToLibrary("Shoe Dog", "Phil Knight", 214, true);
+
+displayBooks(library);
