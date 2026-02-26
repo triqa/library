@@ -4,9 +4,39 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Project: Library</title>
+    <link rel="stylesheet" href="style.css" />
     <script src="javascript.js"></script>
   </head>
   <body>
-    go to console.
+    <div class="container">
+      <div id="intro-view">
+        <button type="button" class="new-book-btn">New Book</button>
+      </div>
+      <div class="pop-up-region">
+        <form
+          action="https://httpbin.org/post"
+          method="post"
+          id="add-book-form"
+        >
+          <div class="form-row">
+            <label for="author-name">Author</label>
+            <input type="text" id="author-name" />
+          </div>
+          <div class="form-row">
+            <label for="title">Title</label>
+            <input type="text" id="title" />
+          </div>
+          <div class="form-row">
+            <label for="pages">Number of pages</label>
+            <input type="number" id="pages" />
+          </div>
+          <div class="form-row">
+            <label for="has-read">Have you read the book?</label>
+            <input type="checkbox" id="has-read" />
+          </div>
+          <button type="submit">Add book</button>
+        </form>
+      </div>
+    </div>
   </body>
 </html>

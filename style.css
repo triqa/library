@@ -1,0 +1,25 @@
+.container {
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  align-items: center;
+}
+
+.new-book-btn {
+  padding: 15px 30px;
+}
+
+#add-book-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+#add-book-form .form-row {
+  display: grid;
+}
+
+form button {
+  padding: 10px;
+}
