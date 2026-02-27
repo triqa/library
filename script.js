@@ -1,10 +1,10 @@
-function Book(title, author, pages, read) {
+function Book(title, authorName, pages, read) {
   if (!new.target) {
     throw Error("You must use the 'new' operator call the constructor");
   }
 
   this.title = title;
-  this.author = author;
+  this.authorName = authorName;
   this.pages = pages;
   this.read = read;
 
@@ -18,12 +18,26 @@ function Book(title, author, pages, read) {
   };
 }
 
-function addBookToLibrary(title, author, pages, read) {
+function addBookToLibrary(bookData) {
   // Create book
-  const book = new Book(title, author, pages, read);
+  const book = new Book(
+    bookData.title,
+    bookData.authorName,
+    bookData.pages,
+    bookData.read,
+  );
 
   // Add book to the books array
   library.push(book);
+
+  const bookCards = document.querySelector("#book-cards");
+
+  // Add new book instance to the UI
+  addBookCard(bookCards, book);
+
+  console.log(`Book ${book.id} added to library`);
+
+  console.table(library);
 }
 
 function displayBooks(library) {
@@ -53,6 +67,8 @@ function addBookCard(bookCards, book) {
   const bookCardEl = document.createElement("div");
   bookCardEl.classList.add("book-card");
   bookCards.appendChild(bookCardEl);
+  // Add a unique data-id to the card
+  bookCardEl.dataset.id = book.id;
 
   // Add the title to the book card
   const titleEl = document.createElement("h2");
@@ -77,25 +93,39 @@ function addBookCard(bookCards, book) {
   hasReadEl.classList.add("has-read");
   hasReadEl.textContent = book.hasRead ? "✔ Read" : "✘ Not read";
   bookCardEl.appendChild(hasReadEl);
+
+  ///
+
+  // Add "remove book" button
+  const removeBookBtnEl = document.createElement("button");
+  removeBookBtnEl.classList.add("remove-book-btn");
+  removeBookBtnEl.textContent = "Remove book";
+  bookCardEl.appendChild(removeBookBtnEl);
+  // Add event listener to remove this book on click
+  removeBookBtnEl.addEventListener("click", () => {
+    // Remove from the list of books library via id
+    // aka remove if the book in the library (b.id) has same ID as the book to be removed (book.id)
+    library = library.filter((b) => b.id !== book.id);
+
+    // Remove book card from UI
+    const bookCardToRemove = document.querySelector(
+      `.book-card[data-id="${book.id}"]`,
+    );
+    bookCardToRemove.remove();
+
+    console.log(`${book.id} removed`);
+    console.table(library);
+  });
 }
 
 const addBookBtn = document.querySelector("#add-book-btn");
 const addBookForm = document.querySelector("#add-book-form");
-
 addBookBtn.addEventListener("click", () => {
   addBookForm.classList.toggle("hidden");
   addBookBtn.classList.toggle("hidden");
 });
 
-const submitBtn = document.querySelector("#submit-btn");
-
-submitBtn.addEventListener("click", () => {
-  addBookForm.classList.toggle("hidden");
-  addBookBtn.classList.toggle("hidden");
-});
-
 const form = document.querySelector("#add-book-form");
-
 form.addEventListener("submit", (e) => {
   // stops form submitting normally
   e.preventDefault();
@@ -107,8 +137,11 @@ form.addEventListener("submit", (e) => {
     hasRead: document.querySelector("#has-read").checked,
   };
 
-  const bookCards = document.querySelector("#book-cards");
+  addBookToLibrary(book);
+});
 
-  // Add new book card to the UI
-  addBookCard(bookCards, book);
+const submitBtn = document.querySelector("#submit-btn");
+submitBtn.addEventListener("click", () => {
+  addBookForm.classList.toggle("hidden");
+  addBookBtn.classList.toggle("hidden");
 });
