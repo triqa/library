@@ -96,6 +96,10 @@ button {
   align-self: center;
 }
 
+.display-books .toggle-read-btn {
+  background-color: var(--lighter-color);
+}
+
 .book-cards {
   display: grid;
   grid-template-columns: 1fr 1fr;

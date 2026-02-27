@@ -20,6 +20,23 @@ function Book(title, authorName, pages, hasRead) {
 
 Book.prototype.toggleReadStatus = function () {
   // Book prototype function that toggles a book instance's read status
+
+  // Toggle read status of book instance
+  this.hasRead = !this.hasRead;
+
+  console.log("Toggled read");
+  console.table(library);
+
+  // Update read status for this book instance's hasRead <p> in the UI
+  // Get the book card with this index
+  const hasReadToToggle = document.querySelector(
+    `.book-card[data-id="${this.id}"] .has-read`,
+  );
+
+  console.log(hasReadToToggle.textContent);
+
+  // Toggle in the UI to either read/not read
+  hasReadToToggle.textContent = this.hasRead ? "✔ Read" : "✘ Not read";
 };
 
 function addBookToLibrary(bookData) {
@@ -30,8 +47,6 @@ function addBookToLibrary(bookData) {
     bookData.pages,
     bookData.hasRead,
   );
-
-  console.log(`booooooook ${book.hasRead}`);
 
   // Add book to the books array
   library.push(book);
@@ -101,6 +116,22 @@ function addBookCard(bookCards, book) {
   bookCardEl.appendChild(hasReadEl);
 
   ///
+
+  // Add "toggle read" button
+  const toggleReadBtnEl = document.createElement("button");
+  toggleReadBtnEl.classList.add("toggle-read-btn");
+  toggleReadBtnEl.textContent = "Toggle read";
+  bookCardEl.appendChild(toggleReadBtnEl);
+  // Add event listener to toggle from read or not read
+  toggleReadBtnEl.addEventListener("click", () => {
+    // Get the book to toggle read status of
+    const bookCardToToggle = library.find((b) => b.id === book.id);
+
+    // console.log(`Book to toggle: ${bookCardToToggle.textContent}`);
+
+    // Toggle read status of this book card
+    bookCardToToggle.toggleReadStatus();
+  });
 
   // Add "remove book" button
   const removeBookBtnEl = document.createElement("button");
