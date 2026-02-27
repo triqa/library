@@ -51,7 +51,7 @@ function addBookCard(bookCards, book) {
 
   // Add a new book card
   const bookCardEl = document.createElement("div");
-  bookCardEl.classList.add("bookCard");
+  bookCardEl.classList.add("book-card");
   bookCards.appendChild(bookCardEl);
 
   // Add the title to the book card
