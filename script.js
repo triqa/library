@@ -1,4 +1,4 @@
-function Book(title, authorName, pages, read) {
+function Book(title, authorName, pages, hasRead) {
   if (!new.target) {
     throw Error("You must use the 'new' operator call the constructor");
   }
@@ -6,7 +6,7 @@ function Book(title, authorName, pages, read) {
   this.title = title;
   this.authorName = authorName;
   this.pages = pages;
-  this.read = read;
+  this.hasRead = hasRead;
 
   // Create unique idea for this book
   this.id = crypto.randomUUID();
@@ -18,14 +18,20 @@ function Book(title, authorName, pages, read) {
   };
 }
 
+Book.prototype.toggleReadStatus = function () {
+  // Book prototype function that toggles a book instance's read status
+};
+
 function addBookToLibrary(bookData) {
   // Create book
   const book = new Book(
     bookData.title,
     bookData.authorName,
     bookData.pages,
-    bookData.read,
+    bookData.hasRead,
   );
+
+  console.log(`booooooook ${book.hasRead}`);
 
   // Add book to the books array
   library.push(book);
@@ -136,6 +142,8 @@ form.addEventListener("submit", (e) => {
     pages: document.querySelector("#pages").value,
     hasRead: document.querySelector("#has-read").checked,
   };
+
+  console.log(`formmmm ${book.hasRead}`);
 
   addBookToLibrary(book);
 });
